@@ -28,7 +28,7 @@ export DJANGO_SETTINGS_MODULE=config.settings.production
 # app/.secrets/secret.json
 
 {
-	"SECRET_KEY" : "Your Secret Key",
+"SECRET_KEY" : "Your Secret Key",
 }
 ```
 
