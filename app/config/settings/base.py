@@ -1,12 +1,13 @@
 import os
-
+import json
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 SECRET_DIR = os.path.join(BASE_DIR, '.secrets')
+SECRET_FILE = json.load(open(os.path.join(SECRET_DIR, 'secret.json')))
 
-SECRET_KEY = 'vtpeb)d#94z1x6yolr4qxhd1@n%h6c4i^3*xu98ds_$6v82*do'
+SECRET_KEY = SECRET_FILE["SECRET_KEY"]
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -14,6 +15,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+THIRD_PARTY_APPS = []
+
+LOCAL_APPS = []
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
