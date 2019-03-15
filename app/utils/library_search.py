@@ -111,4 +111,4 @@ class SearchBook:
 
 
 if __name__ == "__main__":
-    SearchBook("파이썬").search_book()
+    print(SearchBook("파이썬").search_book())
