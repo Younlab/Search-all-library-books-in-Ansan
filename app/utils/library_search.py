@@ -8,20 +8,28 @@ import re
 # status_url = f"{default_url}detailBookData.do?"
 # book_detail_url = f"{default_url}simpleDataSearchP.do?"
 
+
 class SearchBook:
+    """
+    라이브러리 색인
+    """
     site_url = "http://lib.ansan.go.kr/"
     search_url = f"{site_url}detailDataSearchList.do?"
 
-    def find_book(self, keyword, page=1, count=15, lib_num=1):
+    def find_book(self, **kwargs):
         params = {
-            "page": page,
-            "search_vp": count,
-            "srcWord": keyword,
-            "sitekey2": lib_num,
+            "page": kwargs.get("page", 1),
+            "search_vp": kwargs.get("count", 15),
+            "srcWord": kwargs.get("keyword"),
+            "sitekey2": kwargs.get("lib_num", 1),
         }
         html = requests.post(self.search_url, params).text
         soup = BeautifulSoup(html, "lxml")
-        search_list = soup.select("div.serach_list > dl")
+        search_list = soup.select("div.serach_list > dl") if soup.select("div.serach_list > dl") != [] else None
+
+        # 검색 결과가 없을 경우 None
+        if search_list is None:
+            return None
         last_page = int(soup.select_one("div.pn.clear").get_text().split()[-1])
         list_count = int(re.search("\d+", soup.select_one("div.result_area.t_left").get_text()).group())
         lib_name = re.search("\w+", soup.select_one("div.result_area.t_left > span:nth-of-type(1)").get_text()).group()
@@ -39,11 +47,11 @@ class SearchBook:
         ]
         result = {
             "lib_name": lib_name,
-            "lib_num": lib_num,
+            "lib_num": kwargs.get("lib_name"),
             "count": list_count,
-            "current_page": page,
+            "current_page": int(kwargs.get("page")),
             "last_page": last_page,
-            "keyword": keyword,
+            "keyword": kwargs.get("keyword"),
             "data": data
         }
         return result
