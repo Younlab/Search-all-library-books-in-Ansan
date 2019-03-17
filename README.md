@@ -29,6 +29,10 @@ export DJANGO_SETTINGS_MODULE=config.settings.production
 
 {
 "SECRET_KEY" : "Your Secret Key",
+"EMAIL_HOST_USER": "your@gmail.com",
+"EMAIL_HOST_PASSWORD": "passworld",
+"SERVER_EMAIL": "your@gmail.com",
+"DEFAULT_FROM_MAIL": "your"
 }
 ```
 
