@@ -13,13 +13,14 @@ class EmailDelivery(APIView):
         """
         user = request.user
         book_id = request.GET['book_id']
-        if EmailDeliveryModel.objects.filter(user=user, book_id=book_id).exists():
+        if EmailDeliveryModel.objects.filter(user=user, book_id=book_id, send_email=False).exists():
             return Response(status=status.HTTP_200_OK, data=True)
         return Response(status=status.HTTP_204_NO_CONTENT, data=False)
 
     def post(self, request):
         """
         알림 예약 등록
+        {"book_title":"한입에 쏙 파이썬", "book_id":1127719808}
         :param request:
         :return:
         """
