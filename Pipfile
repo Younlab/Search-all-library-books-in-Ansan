@@ -13,6 +13,7 @@ djangorestframework = "*"
 bs4 = "*"
 lxml = "*"
 requests = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

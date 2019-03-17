@@ -24,3 +24,5 @@ MIDDLEWARE += [
 
 # debug toolbar setting
 INTERNAL_IPS = ('127.0.0.1',)
+
+
