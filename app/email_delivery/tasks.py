@@ -5,6 +5,8 @@ from django.core.mail import send_mass_mail
 
 @app.task()
 def send_mail(object_list):
+    if object_list:
+        return None
     email_list = []
     for i in object_list:
         email_list.append((i.book_title, f'{i.book_title} 책이 반납되었습니다.', 'dev.younlab@gmail.com', [i.user.username]))

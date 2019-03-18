@@ -10,7 +10,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'add-every-10-seconds': {
         'task': 'email_delivery.tasks.book_status_check',
-        'schedule': 10.0,
+        'schedule': crontab(hour='10,14,16,18', minute=0)
     }
 }
 
