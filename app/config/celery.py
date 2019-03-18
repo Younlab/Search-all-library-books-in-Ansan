@@ -9,12 +9,14 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'add-every-10-seconds': {
-        'task': 'email_delivery.tasks.book_status_check',
-        'schedule': crontab(hour='10,14,16,18', minute=0)
+        'task': 'email_delivery.tasks.asynchronous_status_check',
+        'schedule': 30.0
+
     }
 }
 
 
+# crontab(hour='10,14,16,18', minute=0)
 @app.task(bind=True)
 def debug_task(self):
     """
