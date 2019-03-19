@@ -17,6 +17,7 @@ requests = "*"
 pillow = "*"
 celery = {extras = ["redis"],version = "*"}
 django-celery-beat = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.7"
