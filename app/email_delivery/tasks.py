@@ -12,6 +12,7 @@ def send_email(**kwargs):
         'dev.younlab@gmail.com',
         [kwargs['to']]
     )
+
     return email.send()
 
 
@@ -24,6 +25,7 @@ def asynchronous_status_check(self):
         check_model = model.pop(-1)
         if check_model.status_check():
             check_model.status = True
+            check_model.send_email = True
             check_model.save()
             send_email_list.append(send_email.s(book_title=check_model.book_title, to=check_model.user.username,
                                                 title=check_model.book_title))

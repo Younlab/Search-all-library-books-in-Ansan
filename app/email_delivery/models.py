@@ -14,6 +14,7 @@ class EmailDelivery(models.Model):
     book_id = models.IntegerField()
     status = models.BooleanField(default=False)
     send_email = models.BooleanField(default=False)
+    create_at = models.DateField(auto_now_add=True, blank=True, null=True)
 
     def __repr__(self):
         return f'{self.user}'
