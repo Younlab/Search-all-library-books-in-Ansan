@@ -17,5 +17,5 @@ class Search(APIView):
         }
         search_result = SearchBook().find_book(**params)
         if search_result is None:
-            return Response(data="검색결과를 찾을 수 없습니다.", status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"data": False, "message": "검색 결과를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
         return Response(data=search_result, status=status.HTTP_200_OK)

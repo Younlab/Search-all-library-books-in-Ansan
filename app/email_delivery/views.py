@@ -14,8 +14,8 @@ class EmailDelivery(APIView):
         user = request.user
         book_id = request.GET['book_id']
         if EmailDeliveryModel.objects.filter(user=user, book_id=book_id, send_email=False).exists():
-            return Response(status=status.HTTP_200_OK, data=True)
-        return Response(status=status.HTTP_204_NO_CONTENT, data=False)
+            return Response(status=status.HTTP_200_OK, data={"data": True})
+        return Response(status=status.HTTP_204_NO_CONTENT, data={"data": False})
 
     def post(self, request):
         """
@@ -29,7 +29,7 @@ class EmailDelivery(APIView):
         book_id = request.data['book_id']
         EmailDeliveryModel.objects.create(user=user, book_title=book_title,
                                           book_id=book_id)
-        return Response(status=status.HTTP_201_CREATED, data="성공")
+        return Response(status=status.HTTP_201_CREATED, data={"data": True})
 
     def delete(self, request):
         """
@@ -42,5 +42,5 @@ class EmailDelivery(APIView):
         user_delivery = EmailDeliveryModel.objects.filter(user=user, book_id=book_id)
         if user_delivery.exists():
             user_delivery.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT, data="예약이 취소었습니다.")
-        return Response(status=status.HTTP_400_BAD_REQUEST, data="해당하는 예약이 없습니다.")
+            return Response(status=status.HTTP_204_NO_CONTENT, data={"data": True, "message": "해당 예약을 취소합니다."})
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={"data": False, "message": "해당하는 예약이 없습니다."})
