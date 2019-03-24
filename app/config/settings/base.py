@@ -8,6 +8,14 @@ SECRET_FILE = json.load(open(os.path.join(SECRET_DIR, 'secret.json')))
 
 SECRET_KEY = SECRET_FILE["SECRET_KEY"]
 
+# Media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Static
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
 # Base email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -17,6 +25,12 @@ EMAIL_HOST_USER = SECRET_FILE['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = SECRET_FILE['EMAIL_HOST_PASSWORD']
 SERVER_EMAIL = SECRET_FILE['SERVER_EMAIL']
 DEFAULT_FROM_MAIL = SECRET_FILE['DEFAULT_FROM_MAIL']
+
+# celery setting
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TIMEZONE = 'Asia/Seoul'
+CELERY_ENABLE_UTC = False
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -106,5 +120,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-STATIC_URL = '/static/'

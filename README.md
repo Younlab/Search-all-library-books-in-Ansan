@@ -10,14 +10,22 @@ pipenv install
 pipenv shell
 ```
 
-## Run ENV
+## Installed Apps
 
 ```bash
-# dev server run
-export DJANGO_SETTINGS_MODULE=config.settings.dev
+# dev
+django-debug-toolbar==1.11
+django-extensions==2.1.6
 
-# production server run
-export DJANGO_SETTINGS_MODULE=config.settings.production
+# base
+djangorestframework==3.9.1
+djangorestframework-jwt==1.11.0
+lxml==4.3.2
+bs4==0.0.1
+Pillow==5.4.1
+redis==3.2.1
+requests==2.21.0
+django-celery-beat==1.4.0
 ```
 
 ## Secret Files
@@ -36,16 +44,31 @@ export DJANGO_SETTINGS_MODULE=config.settings.production
 }
 ```
 
-## Installed Apps
+## Run ENV
 
 ```bash
-# dev
-django-debug-toolbar==1.11
-django-extensions==2.1.6
+# dev server run
+export DJANGO_SETTINGS_MODULE=config.settings.dev
 
-# production
-djangorestframework==3.9.1
+# production server run
+export DJANGO_SETTINGS_MODULE=config.settings.production
 ```
+
+## Run Redis docker server
+celery send email task server
+
+```bash
+docker run -d -p 6379:6379 redis
+```
+
+## Run Celery
+- send-email-process : 10, 14, 16, 18 시 마다 알림요청이 있는지 검사하고 있으면 이메일 발송
+
+```bash
+celery -A config worker -l info -B
+```
+
+
 
 ## API Document's
 - [GitBook](https://ansan-library-search.gitbook.io/project/)

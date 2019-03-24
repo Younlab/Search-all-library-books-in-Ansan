@@ -1,10 +1,13 @@
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from utils.library_search import SearchBook
 
 
 class Search(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
     def get(self, request):
         params = {
             "keyword": request.GET['keyword'],

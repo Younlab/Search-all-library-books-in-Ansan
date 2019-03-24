@@ -19,7 +19,8 @@ def send_email(**kwargs):
 @app.task(bind=True)
 def asynchronous_status_check(self):
     model = [i for i in EmailDelivery.objects.filter(status=False)]
-
+    if not model:
+        return {'task_id': self.request.id, 'result': None}
     send_email_list = []
     while model:
         check_model = model.pop(-1)

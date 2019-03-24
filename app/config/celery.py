@@ -6,17 +6,16 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.dev')
 app = Celery('config')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
-
-app.conf.beat_schedule = {
-    'add-every-10-seconds': {
-        'task': 'email_delivery.tasks.asynchronous_status_check',
-        'schedule': 30.0
-
+app.conf.update(
+    CELERYBEAT_SCHEDULE={
+        'send-email-process': {
+            'task': 'email_delivery.tasks.asynchronous_status_check',
+            'schedule': crontab(hour='10,14,16,18', minute=0)
+        }
     }
-}
+)
 
 
-# crontab(hour='10,14,16,18', minute=0)
 @app.task(bind=True)
 def debug_task(self):
     """
